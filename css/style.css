@@ -13,6 +13,9 @@
     --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow: 0 10px 30px rgba(0, 26, 77, 0.15);
 }
+body{
+    overflow-x: hidden;
+}
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -210,11 +213,32 @@ body {
     gap: 0;
     align-items: center;
     padding: 0;
+    margin-left: 0px;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--white);
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
 }
 
 .nav-item {
     position: relative;
     flex: 0 0 auto;
+}
+.nav-item a{
+    margin-left: 40px;
 }
 
 .nav-link {
@@ -286,7 +310,7 @@ body {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 100%;
     background-color: white;
     min-width: 250px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -933,6 +957,10 @@ body {
         gap: 20px;
         text-align: center;
     }
+
+    .logo-text {
+        font-size: 1.5rem;
+    }
 }
 
 
@@ -1071,15 +1099,51 @@ body {
 }
 
 .popup1 {
-    width: 40%;
-    height: 60%;
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
     background-color: rgb(255, 255, 255);
-    border-radius: 50px;
+    border-radius: 30px;
     box-shadow: 0 0 90px rgba(0, 0, 0, 0.5);
     position: relative;
-    padding: 20px;
+    padding: 30px 20px;
+    overflow-y: auto;
     /* Animation applies to the content box */
     animation: popupEntrance 0.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@media (max-width: 600px) {
+    .ph {
+        margin-left: 20px;
+        margin-top: 30px;
+    }
+
+    .ph2,
+    .gm2,
+    .fa2,
+    .you2,
+    .x2 {
+        margin-left: 70px;
+        margin-top: -50px;
+        font-size: 1rem;
+    }
+
+    .gm,
+    .fa,
+    .you,
+    .x {
+        margin-left: 20px;
+    }
+
+    .con {
+        font-size: 2rem;
+        margin-left: 20px;
+    }
+
+    .close {
+        right: 20px;
+        top: 10px;
+    }
 }
 
 @keyframes popupEntrance {
@@ -1295,10 +1359,36 @@ body {
 @media (max-width: 768px) {
     .hero-section {
         padding: 20px 15px;
+        height: auto;
+        min-height: 250px;
+    }
+
+    .hero-content {
+        margin-left: 0;
+        margin-top: 0;
+        text-align: center;
     }
 
     .college-header-image {
-        padding: 20px;
+        padding: 20px 10px;
+    }
+    .college-header-image img{
+        display: none;
+    }
+
+    .header-logo {
+        position: relative;
+        top: 0;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 auto 15px;
+        height: 100px;
+        width: 100px;
+        display: block;
+    }
+
+    .header-top {
+        margin-bottom: 15px;
     }
 
     .tamil-title {
@@ -1313,23 +1403,121 @@ body {
         font-size: 0.95rem;
     }
 
+    .nav-link {
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        text-align: left;
+    }
+
+    /* Menu Toggle Visibility */
+    .menu-toggle {
+        display: flex;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1002;
+    }
+
+    /* Navbar Mobile Layout */
+    .nav-container {
+        position: relative;
+        min-height: 65px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
     .nav-menu {
+        display: none;
         flex-direction: column;
-        gap: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--primary-dark);
+        padding: 10px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-menu.active {
+        display: flex;
+        animation: slideDown 0.4s ease-out;
     }
 
     .nav-item {
         width: 100%;
-        text-align: center;
     }
 
-    .nav-link {
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .nav-item.has-dropdown:hover .dropdown-menu,
+    .nav-item.has-dropdown.dropdown-active .dropdown-menu {
+        position: relative;
+        top: 0;
+        width: 100%;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0;
+        display: block;
+    }
+
+    .dropdown-menu li a {
+        color: rgba(255, 255, 255, 0.8);
+        padding: 12px 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dropdown-menu li a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #ffd700;
+        padding-left: 35px;
+    }
+
+    /* Hamburger Animation to X */
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
     }
 
     .nav-underline {
         display: none;
+    }
+
+    .principal-box {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+
+    .principal-img img {
+        width: 200px;
+    }
+
+    .principal-text .quote {
+        position: static;
+        font-size: 60px;
+        margin-bottom: -10px;
+        display: block;
+    }
+
+    .about-college,
+    .about-principal,
+    .glimpse-milestone-section,
+    .image-slider-section {
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 20px;
     }
 
     .content {
@@ -1345,9 +1533,14 @@ body {
         font-size: 1.5rem;
     }
 
-    .notifications-bar {
+    .notification-bar {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .notification-label {
         text-align: center;
+        width: 100%;
     }
 }
 
